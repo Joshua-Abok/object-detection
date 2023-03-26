@@ -4,11 +4,11 @@ from ultralytics import YOLO
 import cvzone
 import math
 
-# cap = cv2.VideoCapture(2)
-# cap.set(3, 1280)
-# cap.set(4, 720)
+cap = cv2.VideoCapture(2)
+cap.set(3, 1280)
+cap.set(4, 720)
 
-cap = cv2.VideoCapture()
+# cap = cv2.VideoCapture()
 
 
 model = YOLO("/home/abok/Documents/Fiverr/Hari/cv/Yolo-Weights/yolov8n.pt")
@@ -37,14 +37,14 @@ while True:
             # Bounding box 
             x1, y1, x2, y2 = box.xyxy[0]
             x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
-            # cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 255), 3)
+            cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 3)
 
-               #alt
+            #    #alt
             # x1, y1, w, h = box.xywh[0]
             # bbox = int(x1), int(y1), int(w), int(h)
 
-            w, h = x2-x1, y2-y1
-            cvzone.cornerRect(img, (x1, y1, w, h))
+            # w, h = x2-x1, y2-y1
+            # cvzone.cornerRect(img, (x1, y1, w, h))
             # cv2.rectangle(img, bbox[:2], bbox[2:], (255, 0, 255), 3)
             
             # Confidence
@@ -53,8 +53,10 @@ while True:
 
             # class name
             cls = box.cls[0]
+            # print(f"length of the classes: {int(cls)}")
 
-            cvzone.putTextRect(img, f'{classNames[int(cls)]} {conf}', (max(0, x1), max(70, y1)), scale=1, thickness=1)
+            # cvzone.putTextRect(img, f'{classNames[int(cls)]} {conf}', (max(0, x1), max(70, y1)), scale=1, thickness=1)
+            cv2.putText(img, f'{classNames[int(cls)]} {conf}', (max(0, x1), max(70, y1)), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 4, 255), 3)
              
 
 
